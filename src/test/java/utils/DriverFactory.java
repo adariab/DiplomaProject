@@ -15,21 +15,19 @@ import org.slf4j.LoggerFactory;
 
 public class DriverFactory {
     private static WebDriver driver = null;
+    private static Logger LOGGER = LoggerFactory.getLogger(DriverFactory.class);
 
     public enum Browser {
         FF("firefox"),
         GC("chrome"),
         IE("internet explorer");
-
         private String value;
-
         Browser(String value) {
             this.value = value;
         }
     }
 
     public static WebDriver getDriver(Browser browser) {
-        Logger LOGGER = LoggerFactory.getLogger(DriverFactory.class);
         switch (browser) {
             case FF:
                 FirefoxDriverManager.getInstance(DriverManagerType.FIREFOX).setup();
@@ -55,7 +53,6 @@ public class DriverFactory {
             default:
                 LOGGER.info("Wrong browser has been selected.");
         }
-
         LOGGER.info("Selected Browser: " + browser.value);
         return driver;
     }
