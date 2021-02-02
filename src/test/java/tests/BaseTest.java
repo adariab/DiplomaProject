@@ -1,6 +1,6 @@
 package tests;
 
-import listener.CustomLoggingListener;
+import utils.CustomLoggingListener;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.AfterMethod;
