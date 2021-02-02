@@ -26,10 +26,6 @@ jobs:
           name: Get chrome version
           command: google-chrome --version
       - run:
-          name: Setting chmod for Chrome
-#TODO Change the path to webdriver if it's needed
-          command: chmod 777 ~/.cache/selenium/chromedriver
-      - run:
           name: Running tests
           command: mvn clean install
       - run:
