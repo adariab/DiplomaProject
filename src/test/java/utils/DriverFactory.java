@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DriverFactory {
-    private static WebDriver driver = null;
+    private static WebDriver driver;
     private static Logger LOGGER = LoggerFactory.getLogger(DriverFactory.class);
 
     public enum Browser {
@@ -22,6 +22,7 @@ public class DriverFactory {
         GC("chrome"),
         IE("internet explorer");
         private String value;
+
         Browser(String value) {
             this.value = value;
         }
