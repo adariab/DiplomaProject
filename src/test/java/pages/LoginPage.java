@@ -111,7 +111,7 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Sign out")
-    public void clickOnSignOut() {
+    public void ClickOnSignOut() {
         usernameSignedIn.click();
         signOutButton.click();
     }

@@ -35,7 +35,7 @@ public class LoginPageTest extends BaseTest {
     @Test(description = "SignIn")
     public void signOut() {
         page().signIn();
-        page().clickOnSignOut();
+        page().ClickOnSignOut();
         assertResults(page().getTheButtonName(), "Войти");
         LOGGER.info("User logged out and the button name was changed to the default value 'Войти'");
     }
