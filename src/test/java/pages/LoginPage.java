@@ -2,19 +2,16 @@ package pages;
 
 import com.google.common.net.InternetDomainName;
 import io.qameta.allure.Step;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import propertiesReader.ConfProperties;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 
 public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
@@ -67,13 +64,15 @@ public class LoginPage extends BasePage {
 
     @Step("Set username")
     public void setUsername() {
-        username.sendKeys(ConfProperties.getProperty("username"));
+        username.sendKeys(System.getenv().getOrDefault("usernameCircle",
+                ConfProperties.getProperty("username")));
         LOGGER.info("Set the username - " + ConfProperties.getProperty("username"));
     }
 
     @Step("Set password")
     public void setPassword() {
-        password.sendKeys(ConfProperties.getProperty("password"));
+        password.sendKeys(System.getenv().getOrDefault("passwordCircle",
+                ConfProperties.getProperty("password")));
         LOGGER.info("Set the username - " + ConfProperties.getProperty("password"));
     }
 
@@ -91,15 +90,6 @@ public class LoginPage extends BasePage {
     public String getUsernameSigned() {
         LOGGER.info("The following user was loged in " + usernameSignedIn.getText());
         return usernameSignedIn.getText();
-    }
-
-    //TODO will remove waitForPageIsLoaded method after previous pr with waiters moved to base class is merged
-    @Step("Wait for Page is loaded")
-    public void waitForPageIsLoaded() {
-        WebDriverWait waitForPageIsLoaded = new WebDriverWait(driver, 5);
-        waitForPageIsLoaded.until(
-                webDriver -> Objects.equals(((JavascriptExecutor) webDriver).executeScript("return document.readyState"),
-                        "complete"));
     }
 
     @Step("The whole sign in process")
@@ -129,8 +119,10 @@ public class LoginPage extends BasePage {
 
     @Step("Login via Facebook account")
     public void loginViaFacebookAccount() {
-        fbUsername.sendKeys(ConfProperties.getProperty("fbUsername"));
-        fbPassword.sendKeys(ConfProperties.getProperty("fbPassword"));
+        fbUsername.sendKeys(System.getenv().getOrDefault("fbUsernameCircle",
+                ConfProperties.getProperty("fbUsername")));
+        fbPassword.sendKeys(System.getenv().getOrDefault("fbPasswordCircle",
+                ConfProperties.getProperty("fbPassword")));
         fbLoginButton.click();
         if (isFbConfirmButtonExist()) {
             fbConfirmButton.click();
