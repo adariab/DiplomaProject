@@ -12,6 +12,7 @@ import propertiesReader.ConfProperties;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.NoSuchElementException;
 
 public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
@@ -64,16 +65,30 @@ public class LoginPage extends BasePage {
 
     @Step("Set username")
     public void setUsername() {
-        username.sendKeys(System.getenv().getOrDefault("usernameCircle",
-                ConfProperties.getProperty("username")));
-        LOGGER.info("Set the username - " + ConfProperties.getProperty("username"));
+        username.sendKeys(getDefaultUsername());
+        LOGGER.info("Set the username - " + getDefaultUsername());
+    }
+
+    private String getDefaultUsername() {
+        if (System.getenv("usernameCircle") == null) {
+            return ConfProperties.getProperty("username");
+        } else {
+            return System.getenv("usernameCircle");
+        }
+    }
+
+    private String getDefaultPassword() {
+        if (System.getenv("passwordCircle") == null) {
+            return ConfProperties.getProperty("password");
+        } else {
+            return System.getenv("passwordCircle");
+        }
     }
 
     @Step("Set password")
     public void setPassword() {
-        password.sendKeys(System.getenv().getOrDefault("passwordCircle",
-                ConfProperties.getProperty("password")));
-        LOGGER.info("Set the username - " + ConfProperties.getProperty("password"));
+        password.sendKeys(getDefaultPassword());
+        LOGGER.info("Set the username - " + getDefaultPassword());
     }
 
     @Step("Click on the 'Войти' button")
@@ -88,7 +103,7 @@ public class LoginPage extends BasePage {
 
     @Step("Get the username set after signing in")
     public String getUsernameSigned() {
-        LOGGER.info("The following user was loged in " + usernameSignedIn.getText());
+        LOGGER.info("The following user was logged in " + usernameSignedIn.getText());
         return usernameSignedIn.getText();
     }
 
@@ -119,13 +134,27 @@ public class LoginPage extends BasePage {
 
     @Step("Login via Facebook account")
     public void loginViaFacebookAccount() {
-        fbUsername.sendKeys(System.getenv().getOrDefault("fbUsernameCircle",
-                ConfProperties.getProperty("fbUsername")));
-        fbPassword.sendKeys(System.getenv().getOrDefault("fbPasswordCircle",
-                ConfProperties.getProperty("fbPassword")));
+        fbUsername.sendKeys(getFacebookUsername());
+        fbPassword.sendKeys(getFacebookPassword());
         fbLoginButton.click();
         if (isFbConfirmButtonExist()) {
             fbConfirmButton.click();
+        }
+    }
+
+    private String getFacebookUsername() {
+        if (System.getenv("fbUsernameCircle") == null) {
+            return ConfProperties.getProperty("fbUsername");
+        } else {
+            return System.getenv("fbUsernameCircle");
+        }
+    }
+
+    private String getFacebookPassword() {
+        if (System.getenv("fbPasswordCircle") == null) {
+            return ConfProperties.getProperty("fbPassword");
+        } else {
+            return System.getenv("fbPasswordCircle");
         }
     }
 
