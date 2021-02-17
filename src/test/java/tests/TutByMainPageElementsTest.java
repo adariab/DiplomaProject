@@ -101,7 +101,8 @@ public class TutByMainPageElementsTest extends BaseTest {
         page().open();
         page().searchForSpecificText();
         Steps.assertResults(page().getCurrentUrl(),
-                "https://search.tut.by/?status=1&ru=1&encoding=1&page=0&how=rlv&query=" + searchText);
+                "https://search.tut.by/?status=1&ru=1&encoding=1&page=0&how=rlv&query="
+                        + searchText + "#ua:search_www.tut.by");
         LOGGER.info("The following request should be reflected in the url - 'query=" + searchText + "'");
     }
 
