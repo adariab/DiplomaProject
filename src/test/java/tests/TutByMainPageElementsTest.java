@@ -100,9 +100,10 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void searchForSpecificTextTest() {
         page().open();
         page().searchForSpecificText();
+        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(),
                 "https://search.tut.by/?status=1&ru=1&encoding=1&page=0&how=rlv&query="
-                        + searchText + "#ua:search_www.tut.by");
+                        + searchText);
         LOGGER.info("The following request should be reflected in the url - 'query=" + searchText + "'");
     }
 
@@ -110,6 +111,7 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void listOfSearchResultsTest() {
         page().open();
         page().searchForSpecificText();
+        page().waitForPageIsLoaded();
         Steps.checkThatSearchResultsAreReturned(page().isListOfSearchResultsEmpty());
         LOGGER.info("Expected result: The list of search results returned shouldn't be empty");
     }
