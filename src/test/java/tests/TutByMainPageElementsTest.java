@@ -37,6 +37,7 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void mailFormOpeningTest() {
         page().open();
         page().clickOnMailHyperlink();
+        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://mail.tut.by/");
         LOGGER.info("Mail service is opened. Expected URL is https://mail.tut.by/");
     }
@@ -45,6 +46,7 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void financeTutByPageOpeningTest() {
         page().open();
         page().clickOnFinanceHyperlink();
+        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://finance.tut.by/");
         LOGGER.info("Finance page is opened. Expected URL is https://finance.tut.by/");
     }
@@ -53,6 +55,7 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void afishaTutByPageOpeningTest() {
         page().open();
         page().clickOnAfishaHyperlink();
+        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://afisha.tut.by/");
         LOGGER.info("Afisha page is opened. Expected URL is https://afisha.tut.by/");
     }
@@ -70,6 +73,7 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void pogodaByPageOpeningViaWeatherIconTest() {
         page().open();
         page().clickOnWeatherIcon();
+        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://pogoda.tut.by/");
         LOGGER.info("Pogoda page is opened. Expected URL is https://pogoda.tut.by/");
     }
@@ -78,6 +82,7 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void pogodaByPageOpeningViaTemperatureIconTest() {
         page().open();
         page().clickOnTemperatureIcon();
+        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://pogoda.tut.by/");
         LOGGER.info("Pogoda page is opened. Expected URL is https://pogoda.tut.by/");
     }
