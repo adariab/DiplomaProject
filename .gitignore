@@ -1,3 +1,4 @@
 /.idea
 /target
 DiplomaProject.iml
+/src/test/resources/conf.properties

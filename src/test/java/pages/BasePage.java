@@ -18,7 +18,7 @@ public class BasePage {
 
     @Step("Wait till page is loaded")
     public void waitForPageIsLoaded() {
-        WebDriverWait waitForPageIsLoaded = new WebDriverWait(driver, 5);
+        WebDriverWait waitForPageIsLoaded = new WebDriverWait(driver, 10);
         waitForPageIsLoaded.until(
                 webDriver -> Objects.equals(((JavascriptExecutor) webDriver).executeScript("return document.readyState"),
                         "complete"));
