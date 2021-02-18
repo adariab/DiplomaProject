@@ -12,7 +12,6 @@ import propertiesReader.ConfProperties;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.NoSuchElementException;
 
 public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
