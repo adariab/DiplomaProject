@@ -2,6 +2,7 @@ package utils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.Objects;
 import java.util.UUID;
 
 public class CustomLoggingListener extends AbstractWebDriverEventListener {
@@ -22,6 +24,13 @@ public class CustomLoggingListener extends AbstractWebDriverEventListener {
         String messageId = UUID.randomUUID().toString();
         LOGGER.info(messageId + " : Navigating to [" + url + "] with driver [" + driver + "]");
         takeScreenShot(messageId, driver);
+    }
+    @Override
+    public void afterClickOn(WebElement element, WebDriver driver) {
+        WebDriverWait waitForPageIsLoaded = new WebDriverWait(driver, 10);
+        waitForPageIsLoaded.until(
+                webDriver -> Objects.equals(((JavascriptExecutor) webDriver).executeScript("return document.readyState"),
+                        "complete"));
     }
 
     @Override

@@ -3,6 +3,7 @@ package tests;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.TutByMainPageElements;
 import steps.Steps;
 
@@ -37,7 +38,6 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void mailFormOpeningTest() {
         page().open();
         page().clickOnMailHyperlink();
-        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://mail.tut.by/");
         LOGGER.info("Mail service is opened. Expected URL is https://mail.tut.by/");
     }
@@ -46,7 +46,6 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void financeTutByPageOpeningTest() {
         page().open();
         page().clickOnFinanceHyperlink();
-        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://finance.tut.by/");
         LOGGER.info("Finance page is opened. Expected URL is https://finance.tut.by/");
     }
@@ -55,7 +54,6 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void afishaTutByPageOpeningTest() {
         page().open();
         page().clickOnAfishaHyperlink();
-        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://afisha.tut.by/");
         LOGGER.info("Afisha page is opened. Expected URL is https://afisha.tut.by/");
     }
@@ -64,7 +62,6 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void rabotaByPageOpeningTest() {
         page().open();
         page().clickOnJobsHyperlink();
-        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://rabota.by/#ua:top_menu_www.tut.by~12");
         LOGGER.info("Rabota.by page is opened. Expected URL is https://rabota.by/#ua:top_menu_www.tut.by~12");
     }
@@ -73,7 +70,6 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void pogodaByPageOpeningViaWeatherIconTest() {
         page().open();
         page().clickOnWeatherIcon();
-        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://pogoda.tut.by/");
         LOGGER.info("Pogoda page is opened. Expected URL is https://pogoda.tut.by/");
     }
@@ -82,7 +78,6 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void pogodaByPageOpeningViaTemperatureIconTest() {
         page().open();
         page().clickOnTemperatureIcon();
-        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://pogoda.tut.by/");
         LOGGER.info("Pogoda page is opened. Expected URL is https://pogoda.tut.by/");
     }
@@ -91,28 +86,20 @@ public class TutByMainPageElementsTest extends BaseTest {
     public void tvSetPageOpeningViaTvProgramTest() {
         page().open();
         page().clickOnTvProgramHyperlink();
-        page().waitForPageIsLoaded();
         Steps.assertResults(page().getCurrentUrl(), "https://tvset.tut.by/");
         LOGGER.info("TV-set page is opened. Expected URL is https://tvset.tut.by/");
-    }
-
-    @Test(description = "Search field test")
-    public void searchForSpecificTextTest() {
-        page().open();
-        page().searchForSpecificText();
-        page().waitForPageIsLoaded();
-        Steps.assertResults(page().getCurrentUrl(),
-                "https://search.tut.by/?status=1&ru=1&encoding=1&page=0&how=rlv&query="
-                        + searchText);
-        LOGGER.info("The following request should be reflected in the url - 'query=" + searchText + "'");
     }
 
     @Test(description = "Check the search results")
     public void listOfSearchResultsTest() {
         page().open();
         page().searchForSpecificText();
-        page().waitForPageIsLoaded();
-        Steps.checkThatSearchResultsAreReturned(page().isListOfSearchResultsEmpty());
+        SoftAssert assertion = new SoftAssert();
+        assertion.assertEquals(page().getCurrentUrl(),
+                "https://search.tut.by/?status=1&ru=1&encoding=1&page=0&how=rlv&query="
+                        + searchText);
+        assertion.assertFalse(page().isListOfSearchResultsEmpty());
+        assertion.assertAll();
         LOGGER.info("Expected result: The list of search results returned shouldn't be empty");
     }
 }

@@ -22,7 +22,7 @@ public class LoginPageTest extends BaseTest {
         page().setUsername();
         page().setPassword();
         page().clickOnEnterButton();
-        page().waitForPageIsLoaded();
+//        page().waitForPageIsLoaded();
         Steps.assertResults(page().getUsernameSigned(), "Darya Test");
         LOGGER.info("Expected result: Darya Test");
     }
